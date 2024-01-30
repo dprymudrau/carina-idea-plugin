@@ -53,18 +53,7 @@ public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActi
         final MemberChooserHeaderPanel header = new MemberChooserHeaderPanel(clazz);
         LOG.debug("Displaying member chooser dialog");
 
-        final MemberChooser<PsiElementClassMember<?>> chooser =
-                new MemberChooser<>(dialogMembers, true, true, project, PsiUtil.isLanguageLevel5OrHigher(clazz), header) {
-                    @Override
-                    protected @NotNull String getHelpId() {
-                        return "editing.altInsert.tostring";
-                    }
-
-                    @Override
-                    protected boolean isInsertOverrideAnnotationSelected() {
-                        return JavaCodeStyleSettings.getInstance(clazz.getContainingFile()).INSERT_OVERRIDE_ANNOTATION;
-                    }
-                };
+        final MemberChooser<PsiElementClassMember<?>> chooser = new MemberChooser<>(dialogMembers, true, true, project, false, header);
         //noinspection DialogTitleCapitalization
         chooser.setTitle("generate isElementPresent()");
 
