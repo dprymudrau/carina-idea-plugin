@@ -1,6 +1,7 @@
 package com.solvd.carinaideaplugin;
 
 import com.intellij.codeInsight.CodeInsightActionHandler;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActionHandler, CodeInsightActionHandler {
+    private static final Logger LOG = Logger.getInstance(GenerateIsPresentActionHandlerImpl.class);
 
     @Override
     public boolean startInWriteAction() {
@@ -22,11 +24,14 @@ public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActi
     public void invoke(@NotNull Project project, @NotNull Editor editor, @NotNull PsiFile psiFile) {
         PsiClass psiClass = getSubjectClass(editor, psiFile);
         if(psiClass == null) return;
-
+        execAction(project, psiClass, editor);
     }
 
     private static void execAction(@NotNull final Project project, @NotNull final PsiClass clazz, final Editor editor){
-
+        LOG.debug("+++ doExecuteAction - START +++");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Current project " + project.getName());
+        }
     }
 
     @Nullable
