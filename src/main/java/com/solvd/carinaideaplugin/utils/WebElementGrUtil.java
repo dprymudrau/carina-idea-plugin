@@ -1,4 +1,4 @@
-package com.solvd.carinaideaplugin;
+package com.solvd.carinaideaplugin.utils;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;

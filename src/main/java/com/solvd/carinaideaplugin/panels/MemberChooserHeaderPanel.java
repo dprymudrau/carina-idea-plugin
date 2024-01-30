@@ -1,4 +1,4 @@
-package com.solvd.carinaideaplugin;
+package com.solvd.carinaideaplugin.panels;
 
 import com.intellij.codeInsight.generation.PsiElementClassMember;
 import com.intellij.ide.util.MemberChooser;
