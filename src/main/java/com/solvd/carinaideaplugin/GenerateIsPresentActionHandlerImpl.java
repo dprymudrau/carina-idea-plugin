@@ -9,19 +9,22 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleSettings;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.solvd.carinaideaplugin.filter.GenerateFilter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.java.generate.GenerateToStringContext;
+import org.jetbrains.java.generate.GenerateToStringUtils;
+import org.jetbrains.java.generate.GenerationUtil;
+import org.jetbrains.java.generate.config.Config;
 
 import java.util.Arrays;
 
 import static com.intellij.codeInsight.daemon.impl.quickfix.AnonymousTargetClassPreselectionUtil.getPreselection;
+import static com.solvd.carinaideaplugin.WebElementGrUtil.getAvailableFields;
 import static org.jetbrains.java.generate.GenerateToStringActionHandlerImpl.buildMembersToShow;
 
 public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActionHandler, CodeInsightActionHandler {
@@ -108,5 +111,26 @@ public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActi
 //            if (!filter.canGenerateToString(clazz)) return null;
 //        }
         return clazz;
+    }
+
+
+    public static PsiElementClassMember[] buildMembersToShow(PsiClass clazz) {
+        Config config = GenerateToStringContext.getConfig();
+        PsiField[] filteredFields = getAvailableFields(clazz);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Number of fields after filtering: " + filteredFields.length);
+        }
+
+        PsiMethod[] filteredMethods;
+        if (config.enableMethods) {
+            filteredMethods = GenerateToStringUtils.filterAvailableMethods(clazz, config.getFilterPattern());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Number of methods after filtering: " + filteredMethods.length);
+            }
+        } else {
+            filteredMethods = PsiMethod.EMPTY_ARRAY;
+        }
+
+        return GenerationUtil.combineToClassMemberList(filteredFields, filteredMethods);
     }
 }
