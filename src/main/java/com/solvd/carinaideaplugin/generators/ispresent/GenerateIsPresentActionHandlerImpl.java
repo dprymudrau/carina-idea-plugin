@@ -1,19 +1,16 @@
-package com.solvd.carinaideaplugin;
+package com.solvd.carinaideaplugin.generators.ispresent;
 
 import com.intellij.codeInsight.CodeInsightActionHandler;
 import com.intellij.codeInsight.generation.PsiElementClassMember;
 import com.intellij.ide.util.MemberChooser;
-import com.intellij.java.JavaBundle;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.JavaCodeStyleSettings;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.PsiUtil;
-import com.solvd.carinaideaplugin.filter.GenerateFilter;
+import com.solvd.carinaideaplugin.panels.MemberChooserHeaderPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.java.generate.GenerateToStringContext;
@@ -23,9 +20,7 @@ import org.jetbrains.java.generate.config.Config;
 
 import java.util.Arrays;
 
-import static com.intellij.codeInsight.daemon.impl.quickfix.AnonymousTargetClassPreselectionUtil.getPreselection;
-import static com.solvd.carinaideaplugin.WebElementGrUtil.getAvailableFields;
-import static org.jetbrains.java.generate.GenerateToStringActionHandlerImpl.buildMembersToShow;
+import static com.solvd.carinaideaplugin.utils.WebElementGrUtil.getAvailableFields;
 
 public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActionHandler, CodeInsightActionHandler {
     private static final Logger LOG = Logger.getInstance(GenerateIsPresentActionHandlerImpl.class);

@@ -35,8 +35,8 @@
   <vendor url="https://plugins.jetbrains.com">IntelliJ Platform SDK</vendor>
 
   <extensions defaultExtensionNs="com.intellij">
-    <applicationService serviceInterface="com.solvd.carinaideaplugin.GenerateIsPresentActionHandler"
-                        serviceImplementation="com.solvd.carinaideaplugin.GenerateIsPresentActionHandlerImpl"/>
+    <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandler"
+                        serviceImplementation="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandlerImpl"/>
   </extensions>
 
   <extensionPoints>
@@ -44,9 +44,19 @@
   </extensionPoints>
 
   <actions>
-    <action id="com.solvd.carinaideaplugin.GenerateIsPresentPopUpDialogAction"
-            class="com.solvd.carinaideaplugin.GenerateIsPresentPopUpDialogAction" text="isElementPresent()">
-      <add-to-group group-id="GenerateGroup" anchor="first"/>
-    </action>
+    <group>
+      <action id="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentPopUpDialogAction"
+              class="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentPopUpDialogAction" text="isElementPresent()">
+        <add-to-group group-id="GenerateGroup" anchor="first"/>
+      </action>
+      <action id="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextPopUpDialogAction"
+              class="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextPopUpDialogAction" text="getText()">
+        <add-to-group group-id="GenerateGroup" anchor="first"/>
+      </action>
+      <action id="com.solvd.carinaideaplugin.generators.click.GenerateClickPopUpDialogAction"
+              class="com.solvd.carinaideaplugin.generators.click.GenerateClickPopUpDialogAction" text="click()">
+        <add-to-group group-id="GenerateGroup" anchor="first"/>
+      </action>
+    </group>
   </actions>
 </idea-plugin>
