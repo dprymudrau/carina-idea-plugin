@@ -32,7 +32,10 @@ public class GenerateIsPresentActionHandlerImpl implements GenerateIsPresentActi
         if (LOG.isDebugEnabled()) {
             LOG.debug("Current project " + project.getName());
         }
+
     }
+
+
 
     @Nullable
     private static PsiClass getSubjectClass(Editor editor, final PsiFile file) {
