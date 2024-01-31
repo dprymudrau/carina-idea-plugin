@@ -61,7 +61,7 @@
       </action>
     </group>
     <action id="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction"
-            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction" text="getttt">
+            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction" text="isElementPresent() new impl">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
     </action>
   </actions>
