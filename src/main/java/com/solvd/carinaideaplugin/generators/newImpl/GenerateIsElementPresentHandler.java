@@ -180,7 +180,9 @@ public class GenerateIsElementPresentHandler extends GenerateElementActionsHandl
                         .filter(member -> member instanceof TemplateGenerationInfo)
                         .map(member -> (TemplateGenerationInfo) member).collect(Collectors.toList())
         );
-        runTemplates(project, editor, templates, 0);
+        if (!templates.isEmpty()) {
+            runTemplates(project, editor, templates, 0);
+        }
     }
 
 
