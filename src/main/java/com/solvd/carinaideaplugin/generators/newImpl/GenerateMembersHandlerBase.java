@@ -58,7 +58,7 @@ public abstract class GenerateMembersHandlerBase implements CodeInsightActionHan
     }
 
     @Override
-    public final void invoke(@NotNull final Project project, @NotNull final Editor editor, @NotNull PsiFile file) {
+    public void invoke(@NotNull final Project project, @NotNull final Editor editor, @NotNull PsiFile file) {
         if (!EditorModificationUtil.checkModificationAllowed(editor)) return;
         if (!FileDocumentManager.getInstance().requestWriting(editor.getDocument(), project)) {
             return;
@@ -97,7 +97,7 @@ public abstract class GenerateMembersHandlerBase implements CodeInsightActionHan
     protected void cleanup() {
     }
 
-    private void doGenerate(final Project project, final Editor editor, PsiClass aClass, ClassMember[] members) {
+    protected void doGenerate(final Project project, final Editor editor, PsiClass aClass, ClassMember[] members) {
         Messages.showMessageDialog("Warning", "is Element present generator here", Messages.getInformationIcon());
 
 //        int offset = editor.getCaretModel().getOffset();
@@ -278,7 +278,20 @@ public abstract class GenerateMembersHandlerBase implements CodeInsightActionHan
 
     protected abstract ClassMember[] getAllOriginalMembers(PsiClass aClass);
 
-    protected abstract GenerationInfo[] generateMemberPrototypes(PsiClass aClass, ClassMember originalMember) throws IncorrectOperationException;
+    protected GenerationInfo[] generateMemberPrototypes(PsiClass aClass, ClassMember original) throws IncorrectOperationException {
+        if (original instanceof PropertyClassMember propertyClassMember) {
+            final GenerationInfo[] getters = propertyClassMember.generateGetters(aClass);
+            if (getters != null) {
+                return getters;
+            }
+        } else if (original instanceof EncapsulatableClassMember encapsulatableClassMember) {
+            final GenerationInfo getter = encapsulatableClassMember.generateGetter();
+            if (getter != null) {
+                return new GenerationInfo[]{getter};
+            }
+        }
+        return GenerationInfo.EMPTY_ARRAY;
+    }
 
     @Override
     public boolean startInWriteAction() {

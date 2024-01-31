@@ -33,10 +33,10 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class GenerateGetterSetterHandlerBase extends GenerateMembersHandlerBase {
+public abstract class GenerateElementActionsHandlerBase extends GenerateMembersHandlerBase {
     private static final Logger LOG = Logger.getInstance(com.intellij.codeInsight.generation.GenerateGetterSetterHandlerBase.class);
 
-    public GenerateGetterSetterHandlerBase(@NlsContexts.DialogTitle String chooserTitle) {
+    public GenerateElementActionsHandlerBase(@NlsContexts.DialogTitle String chooserTitle) {
         super(chooserTitle);
     }
 

@@ -60,8 +60,8 @@
         <add-to-group group-id="GenerateGroup" anchor="first"/>
       </action>
     </group>
-    <action id="com.solvd.carinaideaplugin.generators.newImpl.GenerateGetterAction"
-            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateGetterAction" text="getttt">
+    <action id="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction"
+            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction" text="getttt">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
     </action>
   </actions>
