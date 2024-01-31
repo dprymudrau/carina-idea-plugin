@@ -12,6 +12,7 @@
   <!-- Indicate this plugin can be loaded in all IntelliJ Platform-based products. -->
   <depends>com.intellij.modules.platform</depends>
   <depends>com.intellij.java</depends>
+  <depends>com.intellij.java</depends>
 
   <!-- Text to display as description on Settings | Plugin page -->
   <description>
@@ -41,6 +42,7 @@
 
   <extensionPoints>
     <extensionPoint qualifiedName="com.solvd.carinaideaplugin.generateFilter" interface="com.solvd.carinaideaplugin.filter.GenerateFilter" dynamic="true"/>
+<!--    <extensionPoint qualifiedName="com.intellij.generateAccessorProvider" interface="com.intellij.util.NotNullFunction" dynamic="true"/>-->
   </extensionPoints>
 
   <actions>
@@ -58,5 +60,9 @@
         <add-to-group group-id="GenerateGroup" anchor="first"/>
       </action>
     </group>
+    <action id="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction"
+            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction" text="isElementPresent() new impl">
+      <add-to-group group-id="GenerateGroup" anchor="first"/>
+    </action>
   </actions>
 </idea-plugin>
