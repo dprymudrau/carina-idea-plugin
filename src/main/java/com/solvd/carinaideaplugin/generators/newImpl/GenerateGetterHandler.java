@@ -6,16 +6,14 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.java.generate.exception.GenerateCodeException;
 
 import javax.swing.*;
 import java.util.List;
 
 public class GenerateGetterHandler extends GenerateGetterSetterHandlerBase {
     public GenerateGetterHandler() {
-        super(JavaBundle.message("generate.getter.fields.chooser.title"));
+        super("Select Fields to Generate isElementPresent()");
     }
 
     @Override

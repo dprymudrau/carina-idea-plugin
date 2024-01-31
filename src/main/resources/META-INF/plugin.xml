@@ -12,6 +12,7 @@
   <!-- Indicate this plugin can be loaded in all IntelliJ Platform-based products. -->
   <depends>com.intellij.modules.platform</depends>
   <depends>com.intellij.java</depends>
+  <depends>com.intellij.java</depends>
 
   <!-- Text to display as description on Settings | Plugin page -->
   <description>
@@ -41,6 +42,7 @@
 
   <extensionPoints>
     <extensionPoint qualifiedName="com.solvd.carinaideaplugin.generateFilter" interface="com.solvd.carinaideaplugin.filter.GenerateFilter" dynamic="true"/>
+<!--    <extensionPoint qualifiedName="com.intellij.generateAccessorProvider" interface="com.intellij.util.NotNullFunction" dynamic="true"/>-->
   </extensionPoints>
 
   <actions>
