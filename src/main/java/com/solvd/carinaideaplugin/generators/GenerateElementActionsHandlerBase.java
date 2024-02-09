@@ -1,18 +1,26 @@
-package com.solvd.carinaideaplugin.generators.newImpl;
+package com.solvd.carinaideaplugin.generators;
 
-import com.intellij.codeInsight.generation.ClassMember;
-import com.intellij.codeInsight.generation.EncapsulatableClassMember;
+import com.intellij.codeInsight.generation.*;
 import com.intellij.codeInsight.hint.HintManager;
+import com.intellij.codeInsight.template.Template;
+import com.intellij.codeInsight.template.TemplateEditingAdapter;
+import com.intellij.codeInsight.template.TemplateManager;
 import com.intellij.java.JavaBundle;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.application.WriteAction;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.ScrollType;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.ComponentWithBrowseButton;
 import com.intellij.openapi.util.NlsContexts;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
 import com.intellij.ui.SimpleListCellRenderer;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
@@ -30,8 +38,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class GenerateElementActionsHandlerBase extends GenerateMembersHandlerBase {
     private static final Logger LOG = Logger.getInstance(com.intellij.codeInsight.generation.GenerateGetterSetterHandlerBase.class);
@@ -142,5 +154,41 @@ public abstract class GenerateElementActionsHandlerBase extends GenerateMembersH
             }
         });
         return members.toArray(ClassMember.EMPTY_ARRAY);
+    }
+
+    protected static void writeMethods(final Project project, final @NotNull Editor editor, final PsiClass clazz, List<PsiElementClassMember<?>> members, Function<List<PsiElementClassMember<?>>, List<GenerationInfo>> generationFunction) {
+        int offset = editor.getCaretModel().getOffset();
+        ArrayList<TemplateGenerationInfo> templates = WriteAction.compute(
+                        () -> DumbModeAccessType.RELIABLE_DATA_ONLY.ignoreDumbMode(
+                                () -> GenerateMembersUtil.insertMembersAtOffset(clazz, offset, generationFunction.apply(members))))
+                .stream()
+                .filter(member -> member instanceof TemplateGenerationInfo)
+                .map(member -> (TemplateGenerationInfo) member).collect(Collectors.toCollection(ArrayList::new));
+        if (!templates.isEmpty()) {
+            runTemplates(project, editor, templates, 0);
+        }
+    }
+
+
+    protected static void runTemplates(final Project myProject, final @NotNull Editor editor, final @NotNull List<? extends TemplateGenerationInfo> templates, final int index) {
+        TemplateGenerationInfo info = templates.get(index);
+        final Template template = info.getTemplate();
+
+        PsiElement element = Objects.requireNonNull(info.getPsiMember());
+        final TextRange range = element.getTextRange();
+        WriteAction.run(() -> editor.getDocument().deleteString(range.getStartOffset(), range.getEndOffset()));
+        int offset = range.getStartOffset();
+        editor.getCaretModel().moveToOffset(offset);
+        editor.getScrollingModel().scrollToCaret(ScrollType.CENTER);
+        TemplateManager.getInstance(myProject).startTemplate(editor, template, new TemplateEditingAdapter() {
+            @Override
+            public void templateFinished(@NotNull Template template, boolean brokenOff) {
+                if (index + 1 < templates.size()) {
+                    ApplicationManager.getApplication().invokeLater(() -> WriteCommandAction.runWriteCommandAction(myProject, () ->
+                            runTemplates(myProject, editor, templates, index + 1)
+                    ));
+                }
+            }
+        });
     }
 }

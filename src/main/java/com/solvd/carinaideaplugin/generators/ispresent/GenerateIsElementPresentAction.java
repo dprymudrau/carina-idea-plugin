@@ -1,4 +1,4 @@
-package com.solvd.carinaideaplugin.generators.newImpl;
+package com.solvd.carinaideaplugin.generators.ispresent;
 
 import com.intellij.codeInsight.generation.actions.BaseGenerateAction;
 import com.intellij.openapi.project.DumbAware;

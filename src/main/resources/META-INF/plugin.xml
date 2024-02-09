@@ -37,7 +37,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandler"
-                        serviceImplementation="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandlerImpl"/>
+                        serviceImplementation="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsElementPresentHandler"/>
   </extensions>
 
   <extensionPoints>
@@ -46,22 +46,8 @@
   </extensionPoints>
 
   <actions>
-    <group>
-      <action id="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentPopUpDialogAction"
-              class="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentPopUpDialogAction" text="isElementPresent()">
-        <add-to-group group-id="GenerateGroup" anchor="first"/>
-      </action>
-      <action id="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextPopUpDialogAction"
-              class="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextPopUpDialogAction" text="getText()">
-        <add-to-group group-id="GenerateGroup" anchor="first"/>
-      </action>
-      <action id="com.solvd.carinaideaplugin.generators.click.GenerateClickPopUpDialogAction"
-              class="com.solvd.carinaideaplugin.generators.click.GenerateClickPopUpDialogAction" text="click()">
-        <add-to-group group-id="GenerateGroup" anchor="first"/>
-      </action>
-    </group>
-    <action id="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction"
-            class="com.solvd.carinaideaplugin.generators.newImpl.GenerateIsElementPresentAction" text="isElementPresent() new impl">
+    <action id="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsElementPresentAction"
+            class="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsElementPresentAction" text="isElementPresent()">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
     </action>
   </actions>

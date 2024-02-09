@@ -1,4 +1,4 @@
-package com.solvd.carinaideaplugin.generators.newImpl;
+package com.solvd.carinaideaplugin.generators;
 
 import com.intellij.codeInsight.generation.EncapsulatableClassMember;
 import com.intellij.openapi.extensions.ExtensionPointName;
