@@ -15,12 +15,12 @@ import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.solvd.carinaideaplugin.generators.GenerateElementActionsHandlerBase;
+import com.solvd.carinaideaplugin.generators.GenerationUtil;
 import com.solvd.carinaideaplugin.utils.WebElementGrUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.java.generate.GenerateToStringContext;
 import org.jetbrains.java.generate.GenerateToStringUtils;
-import org.jetbrains.java.generate.GenerationUtil;
 import org.jetbrains.java.generate.config.Config;
 import org.jetbrains.java.generate.exception.GenerateCodeException;
 
@@ -130,21 +130,8 @@ public class GenerateIsElementPresentHandler extends GenerateElementActionsHandl
     public static PsiElementClassMember[] buildMembersToShow(PsiClass clazz) {
         Config config = GenerateToStringContext.getConfig();
         PsiField[] filteredFields = getAvailableFields(clazz);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Number of fields after filtering: " + filteredFields.length);
-        }
-
-        PsiMethod[] filteredMethods;
-        if (config.enableMethods) {
-            filteredMethods = GenerateToStringUtils.filterAvailableMethods(clazz, config.getFilterPattern());
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Number of methods after filtering: " + filteredMethods.length);
-            }
-        } else {
-            filteredMethods = PsiMethod.EMPTY_ARRAY;
-        }
-
-        return GenerationUtil.combineToClassMemberList(filteredFields, filteredMethods);
+        PsiMethod[] filteredMethods = GenerateToStringUtils.filterAvailableMethods(clazz, config.getFilterPattern());
+        return GenerationUtil.filterExistingMethod(filteredFields, filteredMethods);
     }
 
     @Override
