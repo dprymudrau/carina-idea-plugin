@@ -71,11 +71,13 @@ public class GenerationTemplate {
 
         public TemplateBuilder returnType(PsiPrimitiveType returnType){
             this.template.returnType = returnType;
+            this.template.returnTypeClass = null;
             return this;
         }
 
         public TemplateBuilder returnTypeClass(Class aClass){
             this.template.returnTypeClass = aClass;
+            this.template.returnType = null;
             return this;
         }
 
