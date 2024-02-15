@@ -7,9 +7,13 @@ public class GenerationTemplate {
     private String message;
     private String methodName;
     private PsiPrimitiveType returnType;
-
+    private Class returnTypeClass;
 
     public GenerationTemplate() {
+    }
+
+    public Class getReturnTypeClass() {
+        return returnTypeClass;
     }
 
     public PsiPrimitiveType getReturnType() {
@@ -67,6 +71,11 @@ public class GenerationTemplate {
 
         public TemplateBuilder returnType(PsiPrimitiveType returnType){
             this.template.returnType = returnType;
+            return this;
+        }
+
+        public TemplateBuilder returnTypeClass(Class aClass){
+            this.template.returnTypeClass = aClass;
             return this;
         }
 
