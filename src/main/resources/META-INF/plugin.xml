@@ -50,5 +50,9 @@
             class="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsElementPresentAction" text="isElementPresent()">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
     </action>
+    <action id="com.solvd.carinaideaplugin.generators.click.GenerateClickAction"
+            class="com.solvd.carinaideaplugin.generators.click.GenerateClickAction" text="click()">
+      <add-to-group group-id="GenerateGroup" anchor="first"/>
+    </action>
   </actions>
 </idea-plugin>
