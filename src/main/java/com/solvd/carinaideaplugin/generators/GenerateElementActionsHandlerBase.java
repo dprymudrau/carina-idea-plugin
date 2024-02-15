@@ -24,6 +24,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.CodeStyleManager;
+import com.intellij.psi.impl.PsiJavaParserFacadeImpl;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.ui.SimpleListCellRenderer;
@@ -284,11 +285,19 @@ public abstract class GenerateElementActionsHandlerBase extends GenerateMembersH
         PsiElementFactory factory = JavaPsiFacade.getElementFactory(psiField.getProject());
         Project project = psiField.getProject();
         String name = psiField.getName();
-        String methodName = String.format(template.getMethodName(), WebElementGrUtil.capitaliseFirstLetter(name));
-        PsiMethod method = factory.createMethod(methodName, template.getReturnType());
-        PsiUtil.setModifierProperty(method, PsiModifier.PUBLIC, true);
-        PsiCodeBlock body = factory.createCodeBlockFromText(String.format(template.getMethodBody(), name ), null);
-        Objects.requireNonNull(method.getBody()).replace(body);
+        PsiMethod method = null;
+        if(template.getReturnType() == null){
+            String methodName = String.format(template.getMethodName(), WebElementGrUtil.capitaliseFirstLetter(name)) + "()";
+            String methodBody = String.format(template.getMethodBody(), name );
+            String returnType = template.getReturnTypeClass().getSimpleName();
+            method = new PsiJavaParserFacadeImpl(project).createMethodFromText(
+                    "public " + returnType + " " + methodName + methodBody, null);
+        } else {
+            method = factory.createMethod(String.format(template.getMethodName(), WebElementGrUtil.capitaliseFirstLetter(name)), template.getReturnType());
+            PsiCodeBlock body = factory.createCodeBlockFromText(String.format(template.getMethodBody(), name ), null);
+            PsiUtil.setModifierProperty(method, PsiModifier.PUBLIC, true);
+            Objects.requireNonNull(method.getBody()).replace(body);
+        }
         method = (PsiMethod) CodeStyleManager.getInstance(project).reformat(method);
         return method;
     }

@@ -38,6 +38,10 @@
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandler"
                         serviceImplementation="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsElementPresentHandler"/>
+    <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextActionHandler"
+                        serviceImplementation="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextHandler"/>
+    <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.click.GenerateClickActionHandler"
+                        serviceImplementation="com.solvd.carinaideaplugin.generators.click.GenerateClickHandler"/>
   </extensions>
 
   <extensionPoints>
@@ -52,6 +56,10 @@
     </action>
     <action id="com.solvd.carinaideaplugin.generators.click.GenerateClickAction"
             class="com.solvd.carinaideaplugin.generators.click.GenerateClickAction" text="click()">
+      <add-to-group group-id="GenerateGroup" anchor="first"/>
+    </action>
+    <action id="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextAction"
+            class="com.solvd.carinaideaplugin.generators.gettext.GenerateGetTextAction" text="getText()">
       <add-to-group group-id="GenerateGroup" anchor="first"/>
     </action>
   </actions>
