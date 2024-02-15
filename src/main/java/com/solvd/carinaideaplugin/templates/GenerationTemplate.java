@@ -1,7 +1,6 @@
 package com.solvd.carinaideaplugin.templates;
 
 import com.intellij.psi.PsiPrimitiveType;
-import com.intellij.psi.PsiTypes;
 
 public class GenerationTemplate {
     private String name;

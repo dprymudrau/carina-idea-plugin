@@ -1,6 +1,5 @@
 package com.solvd.carinaideaplugin.generators.click;
 
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.PsiTypes;
 import com.solvd.carinaideaplugin.generators.GenerateElementActionsHandlerBase;
 import com.solvd.carinaideaplugin.templates.GenerationTemplate;
