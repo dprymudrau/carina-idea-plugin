@@ -4,36 +4,19 @@
 <idea-plugin>
 
   <!-- Unique id for this plugin. Must stay constant for the life of the plugin. -->
-  <id>org.intellij.sdk.toolWindow</id>
+  <id>com.solvd.carinaideaplugin</id>
 
   <!-- Text to display as name on Settings | Plugin page -->
-  <name>SDK: Tool Window Sample</name>
+  <name>Carina Idea Plugin</name>
+
+  <description>
+    To automate automation
+  </description>
 
   <!-- Indicate this plugin can be loaded in all IntelliJ Platform-based products. -->
   <depends>com.intellij.modules.platform</depends>
   <depends>com.intellij.java</depends>
   <depends>com.intellij.java</depends>
-
-  <!-- Text to display as description on Settings | Plugin page -->
-  <description>
-    <![CDATA[
-      This sample plugin illustrates how to create your custom tool window.<br>
-      See the
-      <a href="https://plugins.jetbrains.com/docs/intellij/tool-windows.html">Tool Windows</a>
-      for more information.
-    ]]>
-  </description>
-  <change-notes>
-    <![CDATA[
-      <ul>
-        <li><b>2.0.0</b> Convert to Gradle-based plugin.</li>
-        <li><b>1.0.0</b> Release 2018.3 and earlier.</li>
-      </ul>
-    ]]>
-  </change-notes>
-
-  <!-- Text to display as company information on Settings | Plugin page -->
-  <vendor url="https://plugins.jetbrains.com">IntelliJ Platform SDK</vendor>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService serviceInterface="com.solvd.carinaideaplugin.generators.ispresent.GenerateIsPresentActionHandler"
